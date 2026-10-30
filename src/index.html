@@ -7,8 +7,32 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>あの頃の監督</h1>
-  <p>環境構築成功！ここから熱血チャットを作っていきます。</p>
+
+  <div class="chat-container">
+    
+    <!-- ヘッダー -->
+    <header class="chat-header">
+      <div class="avatar">⚾</div>
+      <div class="header-info">
+        <h2>鬼塚監督</h2>
+        <span class="status">オンライン（熱血指導中）</span>
+      </div>
+    </header>
+
+    <!-- メッセージ表示エリア -->
+    <main class="chat-messages" id="chatMessages">
+      <div class="message kantoku">
+        <div class="bubble">おい！なにか言いたいことがあるならハッキリ言ってみろ！</div>
+      </div>
+    </main>
+
+    <!-- 入力エリア -->
+    <footer class="chat-input-area">
+      <input type="text" id="userInput" placeholder="監督にメッセージを送信..." autocomplete="off">
+      <button id="sendBtn">送信</button>
+    </footer>
+
+  </div>
 
   <script src="script.js"></script>
 </body>
