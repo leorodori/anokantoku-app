@@ -26,14 +26,18 @@ function sendMessage() {
   userInput.value = "";
   scrollToBottom();
 
-  // 2. タイムラグを設けて監督からランダム返信
+  // 2. 少し遅れて「既読」を表示し、さらにその後に監督の返信を出す
+  setTimeout(() => {
+    showReadStatus(); // 既読をつける
+  }, 400); // 送信から0.4秒後に既読に
+
   setTimeout(() => {
     const randomIndex = Math.floor(Math.random() * kantokuMessages.length);
     const replyText = kantokuMessages[randomIndex];
 
     appendMessage(replyText, 'kantoku');
     scrollToBottom();
-  }, 800);
+  }, 1000); // 送信から1.0秒後に監督が返信
 }
 
 function appendMessage(text, sender) {
@@ -46,6 +50,22 @@ function appendMessage(text, sender) {
 
   messageDiv.appendChild(bubbleDiv);
   chatMessages.appendChild(messageDiv);
+}
+
+// 既読表示を追加する関数
+function showReadStatus() {
+  const readDiv = document.createElement('div');
+  readDiv.classList.add('read-status');
+  readDiv.textContent = '既読';
+  
+  chatMessages.appendChild(readDiv);
+  
+  // 少し遅れてクラスを付与してフワッと表示させる
+  setTimeout(() => {
+    readDiv.classList.add('show');
+  }, 50);
+
+  scrollToBottom();
 }
 
 function scrollToBottom() {
