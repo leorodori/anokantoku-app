@@ -139,3 +139,44 @@ body {
 .read-status.show {
   opacity: 1;
 }
+
+.message.typing-indicator-container .bubble {
+  background-color: #ffffff;
+  color: #333333;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  border-top-left-radius: 2px;
+}
+
+.typing-dots {
+  display: inline-flex;
+  gap: 3px;
+  align-items: center;
+}
+
+.typing-dots span {
+  width: 6px;
+  height: 6px;
+  background-color: #888888;
+  border-radius: 50%;
+  display: inline-block;
+  animation: typingBounce 1.4s infinite ease-in-out both;
+}
+
+.typing-dots span:nth-child(1) {
+  animation-delay: -0.32s;
+}
+.typing-dots span:nth-child(2) {
+  animation-delay: -0.16s;
+}
+
+@keyframes typingBounce {
+  0%, 80%, 100% { 
+    transform: scale(0); 
+  } 
+  40% { 
+    transform: scale(1.0); 
+  }
+}
