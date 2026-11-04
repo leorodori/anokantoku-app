@@ -21,23 +21,27 @@ function sendMessage() {
   const text = userInput.value.trim();
   if (text === "") return;
 
-  // 1. ユーザーメッセージの表示
   appendMessage(text, 'user');
   userInput.value = "";
   scrollToBottom();
 
-  // 2. 少し遅れて「既読」を表示し、さらにその後に監督の返信を出す
   setTimeout(() => {
-    showReadStatus(); // 既読をつける
-  }, 400); // 送信から0.4秒後に既読に
+    showReadStatus();
+  }, 400);
 
   setTimeout(() => {
+    showTypingIndicator();
+  }, 800);
+
+  setTimeout(() => {
+    removeTypingIndicator();
+
     const randomIndex = Math.floor(Math.random() * kantokuMessages.length);
     const replyText = kantokuMessages[randomIndex];
 
     appendMessage(replyText, 'kantoku');
     scrollToBottom();
-  }, 1000); // 送信から1.0秒後に監督が返信
+  }, 3300);
 }
 
 function appendMessage(text, sender) {
@@ -52,7 +56,6 @@ function appendMessage(text, sender) {
   chatMessages.appendChild(messageDiv);
 }
 
-// 既読表示を追加する関数
 function showReadStatus() {
   const readDiv = document.createElement('div');
   readDiv.classList.add('read-status');
@@ -60,12 +63,38 @@ function showReadStatus() {
   
   chatMessages.appendChild(readDiv);
   
-  // 少し遅れてクラスを付与してフワッと表示させる
   setTimeout(() => {
     readDiv.classList.add('show');
   }, 50);
 
   scrollToBottom();
+}
+
+function showTypingIndicator() {
+  const messageDiv = document.createElement('div');
+  messageDiv.classList.add('message', 'kantoku', 'typing-indicator-container');
+
+  const bubbleDiv = document.createElement('div');
+  bubbleDiv.classList.add('bubble');
+
+  const dotsDiv = document.createElement('div');
+  dotsDiv.classList.add('typing-dots');
+  for (let i = 0; i < 3; i++) {
+    const dot = document.createElement('span');
+    dotsDiv.appendChild(dot);
+  }
+
+  bubbleDiv.appendChild(dotsDiv);
+  messageDiv.appendChild(bubbleDiv);
+  chatMessages.appendChild(messageDiv);
+  scrollToBottom();
+}
+
+function removeTypingIndicator() {
+  const typingIndicator = document.querySelector('.typing-indicator-container');
+  if (typingIndicator) {
+    typingIndicator.remove();
+  }
 }
 
 function scrollToBottom() {
